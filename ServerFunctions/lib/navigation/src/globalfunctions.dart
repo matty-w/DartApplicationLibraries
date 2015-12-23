@@ -3,7 +3,6 @@ library globalFunctions;
 import 'dart:html';
 import 'dart:js';
 import 'package:PopupLibrary/PopupLibrary.dart';
-import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 import 'navigationfunctions.dart'; 
 
 class GlobalFunctions

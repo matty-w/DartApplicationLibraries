@@ -8,14 +8,23 @@ library ServerFunctions;
 
 // TODO: Export any libraries intended for clients of this package.
 
-export 'src/addadmin.dart';
-export 'src/addpermissionsfunctions.dart';
-export 'src/changepassword.dart';
-export 'src/createlicencefunctions.dart';
-export 'src/globalfunctions.dart';
-export 'src/licencesearchresults.dart';
-export 'src/navigationfunctions.dart';
-export 'src/regeneratelicencefunctions.dart';
-export 'src/removelicencefunctions.dart';
-export 'src/removeadminfunctions.dart';
+export 'navigation/src/globalfunctions.dart';
+export 'navigation/src/navigationfunctions.dart';
+
+export 'licence/src/addadmin.dart';
+export 'licence/src/addpermissionsfunctions.dart';
+export 'licence/src/changepassword.dart';
+export 'licence/src/createlicencefunctions.dart';
+export 'licence/src/licencesearchresults.dart';
+export 'licence/src/regeneratelicencefunctions.dart';
+export 'licence/src/removelicencefunctions.dart';
+export 'licence/src/removeadminfunctions.dart';
+
+export 'registry/src/actionfunctions.dart';
+export 'registry/src/addregistry.dart';
+export 'registry/src/deleteregistry.dart';
+export 'registry/src/editregistry.dart';
+export 'registry/src/elementvalues.dart';
+export 'registry/src/loadfunctions.dart';
+//export 'registry/src/navigationfunctions.dart';
 
