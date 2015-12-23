@@ -1,0 +1,14 @@
+name: LicenceServerFunctions
+version: 0.0.1
+description: A starting point for Dart libraries or applications.
+environment:
+  sdk: '>=1.0.0 <2.0.0'
+dependencies:
+  PopupLibrary:
+    path: C:\Users\matthew.whitmore\Documents\GitHub\DartApplicationLibraries\PopupLibrary
+  SoapRequestLibrary:
+    path: C:\Users\matthew.whitmore\Documents\GitHub\DartApplicationLibraries\SoapRequestLibrary
+  TableCreationLibrary:
+    path: C:\Users\matthew.whitmore\Documents\GitHub\DartApplicationLibraries\TableCreationLibrary
+dev_dependencies:
+  test: '>=0.12.0 <0.13.0'
