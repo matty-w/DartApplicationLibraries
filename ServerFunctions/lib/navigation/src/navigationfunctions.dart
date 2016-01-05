@@ -22,6 +22,11 @@ class NavigationFunctions
     window.location.reload();
   }
   
+  void goToProjectPage()
+  {
+    window.location.href = "addproject.html";
+  }
+  
   void goToRegistryPage()
   {
     window.location.href = "registrymain.html";
@@ -31,6 +36,27 @@ class NavigationFunctions
   {
     window.location.href = "index.html";
   } 
+  
+  void loginProject(MouseEvent m)
+  {
+    InputElement username = querySelector("#usernameTextbox");
+    InputElement password = querySelector("#passwordTextbox");
+    local['username'] = username.value;
+    local['password'] = password.value;
+    
+    if(username.value == null || username.value.trim() == "")
+    {
+      ps.errorPrompt("No-Username");
+      return;
+    }
+    if(password.value == null || password.value.trim() == "")
+    {
+      ps.errorPrompt("No-Password");
+      return;
+    }
+    ServerRequest.basicAuthLogin(username.value, password.value, ServerRequest.defaultUri(), (s) => goToProjectPage(),
+                                (s) => presentErrorPopup());
+  }
     
   void loginRegistry(MouseEvent m)
   {
@@ -62,6 +88,13 @@ class NavigationFunctions
     local['username'] = "";
     local['password'] = "";
     local['project'] = "";
+    window.location.href = "index.html";
+  }
+  
+  void logoutProject(MouseEvent m)
+  {
+    local['username'] = "";
+    local['password'] = "";
     window.location.href = "index.html";
   }
   
