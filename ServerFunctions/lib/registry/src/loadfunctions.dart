@@ -124,6 +124,11 @@ class LoadFunctions
     ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createList(s));
   }
   
+  void loadDatasetProjects(Event e)
+  {
+    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectDataList(s));
+  }
+  
   void selectFolderDestination(String folderName)
   {
     OutputElement output = querySelector("#projectSelected");
@@ -217,5 +222,10 @@ class LoadFunctions
       window.sessionStorage['projects$i'] = response[i];
     }
     ElementValues.getProjects(response);
+  }
+  
+  void createProjectDataList(List response)
+  {
+    ElementValues.datasetProjectsDropDown(response);
   }
 }

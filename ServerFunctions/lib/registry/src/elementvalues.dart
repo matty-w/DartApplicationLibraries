@@ -42,6 +42,22 @@ class ElementValues
     }
   }
   
+  static void datasetProjectsDropDown(List projects)
+  {
+    List<String> projectList = new List();
+    projectList = projects;
+    
+    for(int i = 0; i <= projectList.length; i++)
+    {
+      DataListElement datalist = querySelector("#projectNames");
+      var option = document.createElement("option");
+      option.setAttribute("value", projectList[i]);
+      option.setInnerHtml(projectList[i]);
+      datalist.children.add(option);
+    }
+
+  }
+  
   static void setProjectExplorerList(int projectLength)
   {   
     ActionFunctions af = new ActionFunctions();
