@@ -42,20 +42,34 @@ class ElementValues
     }
   }
   
-  static void datasetProjectsDropDown(List projects)
+  static void datasetProjectsDropDown(List projects, String htmlIdentifier)
   {
     List<String> projectList = new List();
     projectList = projects;
     
     for(int i = 0; i <= projectList.length; i++)
     {
-      DataListElement datalist = querySelector("#projectNames");
+      DataListElement datalist = querySelector(htmlIdentifier);
       var option = document.createElement("option");
       option.setAttribute("value", projectList[i]);
       option.setInnerHtml(projectList[i]);
       datalist.children.add(option);
     }
-
+  }
+  
+  static void selectElementProjectDropDown(List projects, String htmlIdentifier)
+  {
+    List<String> projectList = new List();
+    projectList = projects;
+    
+    for(int i = 0; i <= projectList.length; i++)
+    {
+      SelectElement select = querySelector(htmlIdentifier);
+      var option = document.createElement("option");
+      option.setAttribute("value", projectList[i]);
+      option.setInnerHtml(projectList[i]);
+      select.children.add(option);
+    }
   }
   
   static void setProjectExplorerList(int projectLength)

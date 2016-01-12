@@ -124,9 +124,14 @@ class LoadFunctions
     ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createList(s));
   }
   
-  void loadDatasetProjects(Event e)
+  void loadDatasetProjects(String identifier)
   {
-    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectDataList(s));
+    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectDataList(s, identifier));
+  }
+  
+  void loadSelectElementProjects(String identifier)
+  {
+    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectSelectList(s, identifier));
   }
   
   void selectFolderDestination(String folderName)
@@ -224,8 +229,13 @@ class LoadFunctions
     ElementValues.getProjects(response);
   }
   
-  void createProjectDataList(List response)
+  void createProjectDataList(List response, String identifier)
   {
-    ElementValues.datasetProjectsDropDown(response);
+    ElementValues.datasetProjectsDropDown(response, identifier);
+  }
+  
+  void createProjectSelectList(List response, String identifier)
+  {
+    ElementValues.selectElementProjectDropDown(response, identifier);
   }
 }
