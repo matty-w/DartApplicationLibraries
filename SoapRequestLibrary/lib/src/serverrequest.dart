@@ -222,6 +222,27 @@ class ServerRequest extends SoapRequest
       result.addArgument(key);  
       result.getPortfolioListResponse((s) => onPass(s));
     }
+    
+    static void createProject(String scriptCommand, String host, Function onPass, Function onFail)
+    {
+      window.alert(scriptCommand);
+    }
+    
+    static void addHelperToProject(String addHelperScript, String host, Function onPass, Function onFail)
+    {
+      
+    }
+    
+    static void listPluginsAndDescriptions(String host, Function onPass)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("getPropertiesList");
+      result.addArgument("shared");
+      result.addArgument("plugins"); 
+      result.getPortfolioListResponse((s) => onPass(s));
+    }
   
     static String defaultUri()
     {

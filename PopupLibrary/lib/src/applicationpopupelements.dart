@@ -303,6 +303,20 @@ class ApplicationPopupElements extends PopupActions
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;
     }
+    if(error == "No-Project-Name")
+    {
+      description = "There Is No Name Entered For The Project, Please Enter A Name And Try Again";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "No-Project-Location")
+    {
+      description = "There Is No Location For The Project, Either Type In The Exact Location. Or Use The 'Browse' Button.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
   }
   
   void setRegistryTextboxes(bool a)

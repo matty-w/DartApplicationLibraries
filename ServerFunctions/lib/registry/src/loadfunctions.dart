@@ -119,9 +119,9 @@ class LoadFunctions
     }
   }
   
-  void loadProjects(Event e)
+  void loadProjectsDropdownAndExplorer(String selectIdentifier, String tableIdentifier)
   {
-    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createList(s));
+    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectAndExplorerList(s, selectIdentifier, tableIdentifier));
   }
   
   void loadDatasetProjects(String identifier)
@@ -132,6 +132,16 @@ class LoadFunctions
   void loadSelectElementProjects(String identifier)
   {
     ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectSelectList(s, identifier));
+  }
+  
+  void loadPluginsAndDescriptions(String pluginIdentifier, String descriptionIdentifier)
+  {
+    ServerRequest.listPluginsAndDescriptions(ServerRequest.defaultUri(), (s) => createPluginList(s, pluginIdentifier, descriptionIdentifier));
+  }
+  
+  void loadPluginDescriptors(String pluginIdentifier, String descriptionIdentifier)
+  {
+    ServerRequest.listPluginsAndDescriptions(ServerRequest.defaultUri(), (s) => createDescriptionList(s, pluginIdentifier, descriptionIdentifier));
   }
   
   void selectFolderDestination(String folderName)
@@ -220,13 +230,13 @@ class LoadFunctions
     projectList = projects;
   }
   
-  createList(List response)
+  void createProjectAndExplorerList(List response, String selectIdentifier, String tableIdentifier)
   {
     for(int i = 0; i < response.length; i++)
     {
       window.sessionStorage['projects$i'] = response[i];
     }
-    ElementValues.getProjects(response);
+    ElementValues.selectElementAndExplorer(response, selectIdentifier, tableIdentifier);
   }
   
   void createProjectDataList(List response, String identifier)
@@ -237,5 +247,15 @@ class LoadFunctions
   void createProjectSelectList(List response, String identifier)
   {
     ElementValues.selectElementProjectDropDown(response, identifier);
+  }
+  
+  void createPluginList(List response, String pluginIdentifier, String desctriptionIdentifier)
+  {
+    ElementValues.selectElementPluginsAndDescriptors(response, pluginIdentifier, desctriptionIdentifier);
+  }
+  
+  void createDescriptionList(List response, String pluginId, String desctriptionIdentifier)
+  {
+    ElementValues.setPluginDescriptors(response, pluginId, desctriptionIdentifier);
   }
 }

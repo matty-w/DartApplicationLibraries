@@ -6,8 +6,8 @@ import 'loadfunctions.dart';
 import 'package:TableCreationLibrary/TableCreationLibrary.dart';
 
 class ElementValues
-{
-  static void getProjects(List projects)
+{  
+  static void selectElementAndExplorer(List projects, String selectElementIdentifier, String tableIdentifier)
   {
     ActionFunctions af = new ActionFunctions();
     List<String> projectList = new List();
@@ -15,13 +15,13 @@ class ElementValues
     
     for(int i = 0; i <= projectList.length; i++)
     {
-      SelectElement select = querySelector("#projectDropDown");
+      SelectElement select = querySelector(selectElementIdentifier);
       var option = document.createElement("OPTION");
       option.setAttribute("value", projectList[i]);
       option.setInnerHtml(projectList[i]);
       select.append(option);
       OptionElement o = option;
-      TableElement table = querySelector("#projectNames");
+      TableElement table = querySelector(tableIdentifier);
       TableRowElement row = table.insertRow(-1);
       TableCellElement projectName = row.insertCell(0);
       TableCellElement pictureCell = row.insertCell(0);
@@ -69,6 +69,46 @@ class ElementValues
       option.setAttribute("value", projectList[i]);
       option.setInnerHtml(projectList[i]);
       select.children.add(option);
+    }
+  }
+  
+  static void selectElementPluginsAndDescriptors(List response, String pluginIdentifier, String descriptorIdentifier)
+  {
+    List<String> pluginsList = new List();
+    pluginsList = response;
+    SelectElement pluginDropDown = querySelector(pluginIdentifier);
+    for(int i = 0; i < pluginsList.length; i++)
+    {
+      String pluginNameInitialTrim = pluginsList[i].substring(5);
+      int trim = pluginNameInitialTrim.indexOf("documentation=");
+      String pluginName = pluginNameInitialTrim.substring(0,trim);
+      OptionElement option = new OptionElement();
+      option.id = "plugin"+i.toString();
+      option.innerHtml = pluginName;
+      pluginDropDown.children.add(option);
+    }
+  }
+  
+  static void setPluginDescriptors(List response, String pluginId, String descriptorIdentifier)
+  {
+    List<String> pluginsList = new List();
+    pluginsList = response;
+    TextAreaElement textArea = querySelector(descriptorIdentifier);
+    for(int i = 0; i < pluginsList.length; i++)
+    {
+      if(pluginId == "plugin"+i.toString())
+      {
+        String pluginNameInitialTrim = pluginsList[i].substring(5);
+        int trim = pluginNameInitialTrim.indexOf("documentation=");
+        String descriptorInitialTrim = pluginNameInitialTrim.substring(trim);
+        int descriptionTrim = descriptorInitialTrim.indexOf("version=");
+        String pluginDescription = descriptorInitialTrim.substring(14, descriptionTrim);
+        String pluginTrim = pluginDescription.trim().replaceAll("\n", "");
+        String pluginTrim2 = pluginTrim.trim().replaceAll("   ", "  ");
+        String pluginTrim3 = pluginTrim2.trim().replaceAll("  ", " ");
+        textArea.innerHtml = "";
+        textArea.innerHtml = pluginTrim3;
+      }
     }
   }
   

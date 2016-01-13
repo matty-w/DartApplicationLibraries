@@ -28,3 +28,5 @@ export 'registry/src/elementvalues.dart';
 export 'registry/src/loadfunctions.dart';
 //export 'registry/src/navigationfunctions.dart';
 
+export 'project/src/addproject.dart';
+
