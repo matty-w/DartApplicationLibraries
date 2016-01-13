@@ -1,6 +1,7 @@
 library builder;
 
 import 'popupconstructor.dart';
+import 'dart:html';
 
 class PopupBuilder
 {
@@ -81,6 +82,16 @@ class PopupBuilder
   void createRegistrySuccessPrompt(String successAction)
   {
     pc.setRegistryText(successAction);
+    pc.removePictures(false);
+    pc.setErrorPicture(false);
+    pc.hideBreaks(true);
+    pc.hideCommandButtons(true, true, false, true, true);
+    pc.basicPopup("#popUpDiv");
+  }
+  
+  void createProjectSuccessPrompt(String successAction, String projectName, List helpers)
+  {
+    pc.setAddProjectText(successAction, projectName, helpers);
     pc.removePictures(false);
     pc.setErrorPicture(false);
     pc.hideBreaks(true);

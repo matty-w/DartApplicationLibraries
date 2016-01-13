@@ -182,6 +182,42 @@ class ApplicationPopupElements extends PopupActions
     }
   }
   
+  void setAddProjectText(String option, String projectName, List helpers)
+  {
+    String title;
+    String description;
+    
+    if(option == "Add-Project-With-Helpers")
+    {
+      title = "Project Added";
+      description = "The Project "+projectName+" Was Successfully Added. With The Helpers: "+helpersList(helpers)+".";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Add-Project-Without-Helpers")
+    {
+      title = "Project Added";
+      description = "The Project "+projectName+" Was Successfully Added.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+  }
+  
+  String helpersList(List helpers)
+  {
+    String helpersString = "";
+    
+    for(int i = 0; i < helpers.length; i++)
+    {
+      helpersString = helpersString+helpers[i]+", "; 
+    }
+    int stringLength =  helpersString.length;
+    String helpersStringFinal = helpersString.substring(0, stringLength-2);
+    return helpersStringFinal;
+  }
+  
   void setErrorText(String error)
   {
     String title = "Error";

@@ -225,7 +225,8 @@ class ServerRequest extends SoapRequest
     
     static void createProject(String scriptCommand, String host, Function onPass, Function onFail)
     {
-      window.alert(scriptCommand);
+      String s = "";
+      onPass(s);
     }
     
     static void addHelperToProject(String addHelperScript, String host, Function onPass, Function onFail)
