@@ -190,7 +190,7 @@ class ApplicationPopupElements extends PopupActions
     if(option == "Add-Project-With-Helpers")
     {
       title = "Project Added";
-      description = "The Project "+projectName+" Was Successfully Added. With The Helpers: "+helpersList(helpers)+".";
+      description = "The Project "+projectName+" Was Successfully Added. With The Helper(s): "+helpersList(helpers)+".";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;
@@ -199,6 +199,15 @@ class ApplicationPopupElements extends PopupActions
     {
       title = "Project Added";
       description = "The Project "+projectName+" Was Successfully Added.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Add-Helper-Fail")
+    {
+      title = "Error In Project";
+      description = "While The Project "+projectName+" Was Created Successfully. The Helper(s): "+helpersList(helpers)+" Were Not "+
+          "Installed Properly. Either Delete The Project And Try Again, Or Try Add The Helpers From The 'Edit' Page";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;

@@ -8,6 +8,8 @@ class AddProject
 {
   PopupSelection ps = new PopupSelection();
   PopupConstructor pc = new PopupConstructor();
+  int helperCounter = 0;
+  List failedHelpers = new List();
   
   void addProject(MouseEvent m)
   {
@@ -57,9 +59,17 @@ class AddProject
       pluginList.add(plugin);
       String helperScriptCommand = createHelpersScriptString(plugin);
       ServerRequest.addHelperToProject(helperScriptCommand, ServerRequest.defaultUri(), 
-          moveToNext(), (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
+          moveToNext(), helperFailCounter(plugin));
     }
-    pc.getResult(ps.projectSuccessPrompt("Add-Project-With-Helpers", projectName, pluginList), "");
+    if(helperCounter == 0)
+    {
+      pc.getResult(ps.projectSuccessPrompt("Add-Project-With-Helpers", projectName, pluginList), "");
+    }
+    else if(helperCounter > 0)
+    {
+      pc.getResult(ps.addHelperFail("Add-Helper-Fail", projectName, failedHelpers), "");
+    }
+
 
   }
   
@@ -68,9 +78,10 @@ class AddProject
     return;
   }
   
-  addHelperFail()
+  helperFailCounter(String plugin)
   {
-    
+    failedHelpers.add(plugin);
+    helperCounter++;
   }
   
   String createHelpersScriptString(String plugin)

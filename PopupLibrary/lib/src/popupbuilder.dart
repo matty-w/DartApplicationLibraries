@@ -99,6 +99,16 @@ class PopupBuilder
     pc.basicPopup("#popUpDiv");
   }
   
+  void createProjectFailPrompt(String failAction, String projectName, List helpers)
+  {
+    pc.setAddProjectText(failAction, projectName, helpers);
+    pc.removePictures(false);
+    pc.setErrorPicture(true);
+    pc.hideBreaks(true);
+    pc.hideCommandButtons(true, true, true, false, true);
+    pc.basicPopup("#popUpDiv");
+  }
+  
   void createErrorPrompt(String errorMessage)
   {
     pc.setErrorText(errorMessage);

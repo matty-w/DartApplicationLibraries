@@ -54,6 +54,11 @@ class PopupSelection
     pb.createLicenceClipboardPopup(successAction);
   }
   
+  addHelperFail(String errorMessage, String projectName, List failedHelpers)
+  {
+    pb.createProjectFailPrompt(errorMessage, projectName, failedHelpers);
+  }
+  
   void licenceFormatPopup()
   {
     pb.createLicenceFormatPopup();
