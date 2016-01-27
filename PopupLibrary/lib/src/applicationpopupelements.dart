@@ -182,6 +182,21 @@ class ApplicationPopupElements extends PopupActions
     }
   }
   
+  void setProjectText(String option)
+  {
+    String title;
+    String description;
+    
+    if(option == "Delete-Project-Success")
+    {
+      title = "Project Deleted";
+      description = "The Project Was Successfully Deleted.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+  }
+  
   void setAddProjectText(String option, String projectName, List helpers)
   {
     String title;
@@ -358,6 +373,20 @@ class ApplicationPopupElements extends PopupActions
     if(error == "No-Project-Location")
     {
       description = "There Is No Location For The Project, Either Type In The Exact Location. Or Use The 'Browse' Button.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Add-Project-Fail")
+    {
+      description = "There Has Been An Error Attempting TO Create The Project, The Error Reads:";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Project-Delete-Fail")
+    {
+      description = "There Has Been An Error Attempting To Delete This Project, The Error Reads:";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;

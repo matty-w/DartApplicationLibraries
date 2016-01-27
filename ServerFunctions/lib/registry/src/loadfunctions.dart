@@ -131,7 +131,7 @@ class LoadFunctions
   
   void loadSelectElementProjects(String identifier)
   {
-    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectSelectList(s, identifier));
+    ServerRequest.getProjectConfigs(ServerRequest.defaultUri(), (s) => createProjectSelectList(s, identifier));
   }
   
   void loadPluginsAndDescriptions(String pluginIdentifier, String descriptionIdentifier)
@@ -246,7 +246,32 @@ class LoadFunctions
   
   void createProjectSelectList(List response, String identifier)
   {
-    ElementValues.selectElementProjectDropDown(response, identifier);
+    List<String> projectTitles = new List<String>();
+    for(int i = 0; i < response.length; i++)
+    {
+      List<String> projectConfigs = new List<String>();
+      projectConfigs = response[i];
+      for(int i = 0; i < projectConfigs.length; i++)
+      {
+        //bool hasTitle = false;
+        
+        String config = projectConfigs[i];
+        if(config.contains("project.name"))
+        {
+          String projectNameFinal = config.substring(13);
+          projectTitles.add(projectNameFinal);
+          //hasTitle = false;
+        }
+        /*if(config.contains("project.title"))
+        {
+          projectTitles.removeLast();
+          String projectNameFinal = config.substring(14);
+          projectTitles.add(projectNameFinal);
+          hasTitle = true;
+        }*/
+      }
+    }
+    ElementValues.selectElementProjectDropDown(projectTitles, identifier);
   }
   
   void createPluginList(List response, String pluginIdentifier, String desctriptionIdentifier)

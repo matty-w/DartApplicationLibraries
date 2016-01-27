@@ -89,9 +89,19 @@ class PopupBuilder
     pc.basicPopup("#popUpDiv");
   }
   
-  void createProjectSuccessPrompt(String successAction, String projectName, List helpers)
+  void createAddProjectSuccessPrompt(String successAction, String projectName, List helpers)
   {
     pc.setAddProjectText(successAction, projectName, helpers);
+    pc.removePictures(false);
+    pc.setErrorPicture(false);
+    pc.hideBreaks(true);
+    pc.hideCommandButtons(true, true, false, true, true);
+    pc.basicPopup("#popUpDiv");
+  }
+  
+  void createProjectSuccessPrompt(String successAction)
+  {
+    pc.setProjectText(successAction);
     pc.removePictures(false);
     pc.setErrorPicture(false);
     pc.hideBreaks(true);

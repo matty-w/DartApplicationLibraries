@@ -1,3 +1,4 @@
+import 'dart:html';
 
 class XmlConstruct
 {

@@ -29,4 +29,5 @@ export 'registry/src/loadfunctions.dart';
 //export 'registry/src/navigationfunctions.dart';
 
 export 'project/src/addproject.dart';
+export 'project/src/deleteproject.dart';
 

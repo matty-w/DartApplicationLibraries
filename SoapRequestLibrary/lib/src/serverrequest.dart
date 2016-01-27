@@ -159,6 +159,24 @@ class ServerRequest extends SoapRequest
       result.getDatabaseListResponse((s) => onPass(s));
     }
     
+    static void listProjectsTemp(String host, Function onPass)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setAction("listProjects");
+      result.setHost(host);
+      result.getDatabaseListResponse((s) => onPass(s));
+    } 
+    
+    static void getProjectConfigs(String host, Function onPass)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setAction("getProjects");
+      result.setHost(host);
+      result.getPortfolioListOfListResponse((s) => onPass(s));
+    }
+    
     static void getRegistryFiles(String project, String host, Function onPass)
     {
       ServerRequest result;
@@ -225,13 +243,22 @@ class ServerRequest extends SoapRequest
     
     static void createProject(String scriptCommand, String host, Function onPass, Function onFail)
     {
-      String s = "";
-      onPass(s);
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("runScriptCommand");
+      result.addArgument(scriptCommand);
+      result.getPortfolioStringResponse((String s) => (s == ("done"))? onPass(s) : onFail (s));
     }
     
     static void addHelperToProject(String addHelperScript, String host, Function onPass, Function onFail)
     {
-      
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("runScriptCommand");
+      result.addArgument(addHelperScript);
+      result.getPortfolioStringResponse((String s) => (s == ("done"))? onPass(s) : onFail (s));
     }
     
     static void listPluginsAndDescriptions(String host, Function onPass)
@@ -243,6 +270,26 @@ class ServerRequest extends SoapRequest
       result.addArgument("shared");
       result.addArgument("plugins"); 
       result.getPortfolioListResponse((s) => onPass(s));
+    }
+    
+    static void deleteProject(String deleteProjectScript, String host, Function onPass, Function onFail)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("runScriptCommand");
+      result.addArgument(deleteProjectScript);
+      result.getPortfolioStringResponse((String s) => (s == ("done"))? onPass(s) : onFail (s));
+      
+    }
+    
+    static void resetAllProjects(String host, Function onPass)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("resetAllProjects");
+      result.getPortfolioStringResponse((s) => onPass(s));
     }
   
     static String defaultUri()

@@ -8,13 +8,12 @@ class AddProject
 {
   PopupSelection ps = new PopupSelection();
   PopupConstructor pc = new PopupConstructor();
-  int helperCounter = 0;
   List failedHelpers = new List();
   
   void addProject(MouseEvent m)
   {
     InputElement projectNameBox = querySelector("#projName");
-    InputElement projectLocationBox = querySelector("#projLocation");
+    SelectElement projectLocationBox = querySelector("#projLocation");
     SelectElement pluginsSelectedBox = querySelector("#pluginsRight");
     String projectName = projectNameBox.value;
     String projectLocation = projectLocationBox.value;
@@ -35,6 +34,7 @@ class AddProject
     scriptCommand = createAddProjectScriptString(projectName, projectLocation);
     if(pluginsSelectedBox.length == 0)
     {
+      window.alert(scriptCommand);
       ServerRequest.createProject(scriptCommand, ServerRequest.defaultUri(), 
           (s) => addProjectSuccess(s, projectName), (s) => addProjectFail(s));
     }
@@ -47,6 +47,7 @@ class AddProject
   
   addHelpers()
   {
+    
     SelectElement pluginsSelectedBox = querySelector("#pluginsRight");
     InputElement projectNameBox = querySelector("#projName");
     String projectName = projectNameBox.value;
@@ -61,13 +62,23 @@ class AddProject
       ServerRequest.addHelperToProject(helperScriptCommand, ServerRequest.defaultUri(), 
           moveToNext(), helperFailCounter(plugin));
     }
-    if(helperCounter == 0)
+    window.alert(failedHelpers.length.toString());
+    
+    if(failedHelpers.length == 0)
     {
-      pc.getResult(ps.projectSuccessPrompt("Add-Project-With-Helpers", projectName, pluginList), "");
+      window.alert("inside failedHelpers = 0 ");
+      pc.getResult(ps.addProjectSuccessPrompt("Add-Project-With-Helpers", projectName, pluginList), "");
     }
-    else if(helperCounter > 0)
+    else if(failedHelpers.length > 0)
     {
-      pc.getResult(ps.addHelperFail("Add-Helper-Fail", projectName, failedHelpers), "");
+      List helpers = new List();
+      helpers = failedHelpers;
+      for(int i = 0; i < failedHelpers.length; i++)
+      {
+        failedHelpers.removeLast();
+      }
+      window.alert(failedHelpers.length.toString());
+      pc.getResult(ps.addHelperFail("Add-Helper-Fail", projectName, helpers), "");
     }
 
 
@@ -81,28 +92,33 @@ class AddProject
   helperFailCounter(String plugin)
   {
     failedHelpers.add(plugin);
-    helperCounter++;
   }
   
   String createHelpersScriptString(String plugin)
   {
     InputElement projectNameBox = querySelector("#projName");
     String projectName = projectNameBox.value;
-    return "portfolio add helper "+plugin+" to "+projectName;
+    return "add helper "+plugin+" to "+projectName;
   }
   
   String createAddProjectScriptString(String projectName, String projectLocation)
   {
-    return "portfolio add project "+projectName+" in "+projectLocation;
+    InputElement locationBox = querySelector("#projLocation");
+    String scriptString;
+    if(locationBox.value == "Default")
+    {
+      scriptString = "add project "+projectName;
+    }
+    return scriptString;
   }
   
   void addProjectSuccess(String response, String projectName)
   {
-    pc.getResult(ps.projectSuccessPrompt("Add-Project-Without-Helpers", projectName, null), "");
+    pc.getResult(ps.addProjectSuccessPrompt("Add-Project-Without-Helpers", projectName, null), "");
   }
   
   void addProjectFail(String response)
   {
-    
+    pc.getResult(ps.errorPrompt("Add-Project-Fail"), response);
   }
 }

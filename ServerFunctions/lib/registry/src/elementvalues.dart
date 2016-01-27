@@ -67,6 +67,7 @@ class ElementValues
       SelectElement select = querySelector(htmlIdentifier);
       var option = document.createElement("option");
       option.setAttribute("value", projectList[i]);
+      option.id = i.toString();
       option.setInnerHtml(projectList[i]);
       select.children.add(option);
     }

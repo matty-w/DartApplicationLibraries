@@ -85,6 +85,20 @@ class SoapRequest extends XmlConstruct
     });
   }
   
+  void getPortfolioListOfListResponse(Function onReturn)
+  {
+    sendPortfolioRequest().listen((ProgressEvent e)
+    {
+      if(request.readyState == 4)
+      {
+        if(request.status == 200)
+        {
+          onReturn(xmlResponseListOfList());
+        }     
+      }
+    });
+  }
+  
   getPortfolioStringResponse(Function onReturn)
   {
     sendPortfolioRequest().listen((ProgressEvent p)
@@ -152,6 +166,31 @@ class SoapRequest extends XmlConstruct
       list.add(n.text);
     }
     return list;  
+  }
+  
+  List<List> xmlResponseListOfList()
+  {
+    Node envelope;
+    Node body;
+    Node content;
+    
+    List<List> listOfLists = new List<List>();
+    
+    envelope = request.responseXml.nodes[0];
+    body = envelope.nodes[0];
+    content = body.nodes[0];
+    for(Node n in content.nodes)
+    {
+      List<String> list = new List<String>();
+      for(int i = 0; i < n.childNodes.length; i++)
+      {
+        Node singleElement = n.childNodes.elementAt(i);
+        String element = singleElement.text;
+        list.add(element);
+      }
+      listOfLists.add(list);
+    }
+    return listOfLists;
   }
   
   String xmlResponseString()
