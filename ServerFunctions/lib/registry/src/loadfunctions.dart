@@ -134,13 +134,21 @@ class LoadFunctions
     ServerRequest.getProjectConfigs(ServerRequest.defaultUri(), (s) => createProjectSelectList(s, identifier));
   }
   
+  void loadProjectDetails(String titleIdentifier, String descriptionIdentifier)
+  {
+    SelectElement selectedProjectBox = querySelector("#projectDropDown");
+    String selectedProject = selectedProjectBox.value;
+    ServerRequest.getProjectConfigs(ServerRequest.defaultUri(), (s) => createEditProjectDetails(s, titleIdentifier, descriptionIdentifier
+        , selectedProject));
+  }
+  
   void loadPluginsAndDescriptions(String pluginIdentifier, String descriptionIdentifier)
   {
     ServerRequest.listPluginsAndDescriptions(ServerRequest.defaultUri(), (s) => createPluginList(s, pluginIdentifier, descriptionIdentifier));
   }
   
   void loadPluginDescriptors(String pluginIdentifier, String descriptionIdentifier)
-  {
+  {  
     ServerRequest.listPluginsAndDescriptions(ServerRequest.defaultUri(), (s) => createDescriptionList(s, pluginIdentifier, descriptionIdentifier));
   }
   
@@ -271,7 +279,44 @@ class LoadFunctions
         }*/
       }
     }
+    createEditProjectDetails(response, "#projName", "#projDescription", projectTitles[0]);
     ElementValues.selectElementProjectDropDown(projectTitles, identifier);
+  }
+  
+  void createEditProjectDetails(List response, String titleIdentifier, String descriptionIdentifier, String projectName)
+  {
+    InputElement projectTitleBox = querySelector(titleIdentifier);
+    InputElement projectDescriptionBox = querySelector(descriptionIdentifier);
+    projectTitleBox.value = "";
+    projectDescriptionBox.value = "";
+    
+    for(int i = 0; i < response.length; i++)
+    {
+      List<String> projectConfigs = new List<String>();
+      projectConfigs = response[i];
+      for(int i = 0; i < projectConfigs.length; i++)
+      {
+        String configs = projectConfigs[i];
+        if(configs.contains("project.name="+projectName))
+        {
+          List<String> correctProject = projectConfigs;
+          for(int i = 0; i < correctProject.length; i++)
+          {
+            String correctConfigs = correctProject[i];
+            if(correctConfigs.contains("project.title="))
+            {
+              String projectTitle = correctConfigs.substring(14);
+              projectTitleBox.value = projectTitle;
+            }
+            if(correctConfigs.contains("project.shortDescription="))
+            {
+              String projectDescription = correctConfigs.substring(25);
+              projectDescriptionBox.value = projectDescription;
+            }
+          }
+        }
+      }
+    }  
   }
   
   void createPluginList(List response, String pluginIdentifier, String desctriptionIdentifier)
