@@ -20,8 +20,8 @@ class RemoveAdminFunctions
       return;
     }
     
-    ServerRequest.removeUser(userValue, window.sessionStorage['username'],window.sessionStorage['password'],
-                              ServerRequest.defaultUri(), 
+    LicenceServerRequests.removeLicenceUser(userValue, window.sessionStorage['username'],window.sessionStorage['password'],
+                             LicenceServerRequests.defaultUri(), 
                              (s) => pc.getResult(ps.licenceSuccessPrompt("Remove-Admin"), s),
                              (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
     

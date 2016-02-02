@@ -3,6 +3,7 @@ library deleteRegistry;
 import 'dart:html';
 import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 import 'package:PopupLibrary/PopupLibrary.dart';
+import 'package:ServerFunctions/ServerFunctions.dart';
 import 'elementvalues.dart';
 
 class DeleteRegistry
@@ -12,11 +13,11 @@ class DeleteRegistry
   
   void completeDeletion(MouseEvent m)
   {
-    List catalogueKeys = ElementValues.deleteKeys();
+    List catalogueKeys = RegistryWebElementValues.deleteKeys();
 
     for(int i = 0; i < catalogueKeys.length; i++)
     {
-      ServerRequest.deleteRegistryFile(catalogueKeys[i], ServerRequest.defaultUri(), failFunction(), passFunction());
+      DatabaseServerRequests.deleteRegistryFile(catalogueKeys[i], DatabaseServerRequests.defaultUri(), failFunction(), passFunction());
     }
     if(deletionFailCount == 0)
     {
@@ -26,7 +27,7 @@ class DeleteRegistry
   
   void deleteButton(MouseEvent m)
   {
-    List catalogueKeys = ElementValues.deleteKeys();
+    List catalogueKeys = RegistryWebElementValues.deleteKeys();
     if(catalogueKeys.length == 0 || catalogueKeys == null)
     {
       ps.errorPrompt("No-Entries-Selected");

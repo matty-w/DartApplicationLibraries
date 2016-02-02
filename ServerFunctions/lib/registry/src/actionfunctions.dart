@@ -2,11 +2,13 @@
 import 'dart:html';
 import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 import 'package:PopupLibrary/PopupLibrary.dart';
-import 'loadfunctions.dart';
+import 'package:ServerFunctions/ServerFunctions.dart';
 
 class ActionFunctions
 {
-  LoadFunctions lf = new LoadFunctions();
+  //LoadFunctions lf = new LoadFunctions();
+  OnLoadRegistry olr = new OnLoadRegistry();
+  
   PopupSelection ps = new PopupSelection();
   PopupConstructor pc = new PopupConstructor();
   
@@ -23,7 +25,7 @@ class ActionFunctions
     table.innerHtml = "";
     folderPathBox.value = "";
     String projectName = window.sessionStorage['projects$i'];
-    ServerRequest.showProjectFolders(projectName, "BuildTables", ServerRequest.defaultUri(), (s) => lf.setFoldersList(s), 
+    PortfolioServerRequests.showProjectFolders(projectName, "BuildTables", PortfolioServerRequests.defaultUri(), (s) => olr.setFoldersList(s), 
                                     (s) => blankTable());
   }
   
@@ -47,7 +49,7 @@ class ActionFunctions
       String regName = registryNameBox.value;
       String contentPath = contentPathBox.value;
       
-      ServerRequest.addRegistryFile(regName, contentPath, ServerRequest.defaultUri(), 
+      DatabaseServerRequests.addRegistryFile(regName, contentPath, DatabaseServerRequests.defaultUri(), 
           (s) => ps.registrySuccessPopup("Add-Registry-Success"),
           (s) => ps.errorPrompt("Server-Error"));
     }
@@ -57,7 +59,7 @@ class ActionFunctions
       String regName = registryNameBox.value;
       String contentPath = contentPathBox.value;
       
-      ServerRequest.editRegistryFile(regName, contentPath, ServerRequest.defaultUri(),
+      DatabaseServerRequests.editRegistryFile(regName, contentPath, DatabaseServerRequests.defaultUri(),
           (s) => ps.registrySuccessPopup("Edit-Registry-Success"),
           (s) => ps.errorPrompt("Server-Error"));
     }
@@ -71,8 +73,8 @@ class ActionFunctions
     InputElement selectedProject = querySelector("#projectDropDown");
     window.sessionStorage['project'] = selectedProject.value;
     window.localStorage['project'] = window.sessionStorage['project'];
-    ServerRequest.getRegistryFiles(window.sessionStorage['project'], ServerRequest.defaultUri(),
-                                  (s) => lf.createRegistryTable(s));
+    DatabaseServerRequests.getRegistryFiles(window.sessionStorage['project'], DatabaseServerRequests.defaultUri(),
+                                  (s) => olr.createRegistryTable(s));
   }
   
   void setItem(MouseEvent m)

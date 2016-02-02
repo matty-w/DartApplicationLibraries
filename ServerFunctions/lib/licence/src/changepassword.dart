@@ -29,10 +29,10 @@ class ChangePassword
     }
     else
     {
-      ServerRequest.changeAdminPassword(username.value, cp, window.sessionStorage['username'],
-                                        window.sessionStorage['password'],ServerRequest.defaultUri(), 
-                                        (s) => pc.getResult(ps.licenceSuccessPrompt("Change-Password"), s),
-                                        (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
+      LicenceServerRequests.changeAdminPassword(username.value, cp, window.sessionStorage['username'],
+                                                window.sessionStorage['password'],LicenceServerRequests.defaultUri(), 
+                                                (s) => pc.getResult(ps.licenceSuccessPrompt("Change-Password"), s),
+                                                (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
       window.sessionStorage['password'] = pass;
     }  
     

@@ -9,11 +9,10 @@ class DeleteProject
   PopupSelection ps = new PopupSelection();
   PopupConstructor pc = new PopupConstructor();
   
-  deleteProject(MouseEvent m)
+  deleteProject(String projectNamesBoxId)
   {
-    SelectElement projectNameBox = querySelector("#projectNames");
+    SelectElement projectNameBox = querySelector(projectNamesBoxId);
     String projectName;
-    window.alert(projectNameBox.length.toString());
     
     if(projectNameBox.value == "" || projectNameBox.value == null)
     {
@@ -31,7 +30,8 @@ class DeleteProject
     
     
     String deleteProjectScript = createDeleteScript(projectName);
-    ServerRequest.deleteProject(deleteProjectScript, ServerRequest.defaultUri(), (s) => resetProjects(), (s) => deleteFail(s));
+    PortfolioServerRequests.deleteProject(deleteProjectScript, PortfolioServerRequests.defaultUri(), 
+                                          (s) => resetProjects(), (s) => deleteFail(s));
   }
   
   String createDeleteScript(String projectName)
@@ -42,7 +42,7 @@ class DeleteProject
   
   resetProjects()
   {
-    ServerRequest.resetAllProjects(ServerRequest.defaultUri(), deleteSuccessful());
+    PortfolioServerRequests.resetAllProjects(PortfolioServerRequests.defaultUri(), deleteSuccessful());
   }
   
   deleteSuccessful()

@@ -1,4 +1,4 @@
-library loadFunctions;
+/*library loadFunctions;
 
 import 'dart:html';
 import 'elementvalues.dart';
@@ -121,17 +121,17 @@ class LoadFunctions
   
   void loadProjectsDropdownAndExplorer(String selectIdentifier, String tableIdentifier)
   {
-    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectAndExplorerList(s, selectIdentifier, tableIdentifier));
+    ServerRequest.listProjectsDatabase(ServerRequest.defaultUri(),(s) => createProjectAndExplorerList(s, selectIdentifier, tableIdentifier));
   }
   
   void loadDatasetProjects(String identifier)
   {
-    ServerRequest.listProjects(ServerRequest.defaultUri(),(s) => createProjectDataList(s, identifier));
+    ServerRequest.listProjectsDatabase(ServerRequest.defaultUri(),(s) => createProjectDataList(s, identifier));
   }
   
-  void loadSelectElementProjects(String identifier)
+  void loadSelectElementProjects(String identifier, bool includeProjDetails)
   {
-    ServerRequest.getProjectConfigs(ServerRequest.defaultUri(), (s) => createProjectSelectList(s, identifier));
+    ServerRequest.getProjectConfigs(ServerRequest.defaultUri(), (s) => createProjectSelectList(s, identifier, includeProjDetails));
   }
   
   void loadProjectDetails(String titleIdentifier, String descriptionIdentifier)
@@ -252,7 +252,7 @@ class LoadFunctions
     ElementValues.datasetProjectsDropDown(response, identifier);
   }
   
-  void createProjectSelectList(List response, String identifier)
+  void createProjectSelectList(List response, String identifier, bool includeProjDetails)
   {
     List<String> projectTitles = new List<String>();
     for(int i = 0; i < response.length; i++)
@@ -279,7 +279,10 @@ class LoadFunctions
         }*/
       }
     }
-    createEditProjectDetails(response, "#projName", "#projDescription", projectTitles[0]);
+    if(includeProjDetails == true)
+    {
+      createEditProjectDetails(response, "#projName", "#projDescription", projectTitles[0]);
+    }
     ElementValues.selectElementProjectDropDown(projectTitles, identifier);
   }
   
@@ -328,4 +331,4 @@ class LoadFunctions
   {
     ElementValues.setPluginDescriptors(response, pluginId, desctriptionIdentifier);
   }
-}
+}*/

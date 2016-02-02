@@ -10,11 +10,11 @@ class AddProject
   PopupConstructor pc = new PopupConstructor();
   List failedHelpers = new List();
   
-  void addProject(MouseEvent m)
+  void addProject(String projectNameBoxId, String projectLocationBoxId, String pluginsRightBoxId)
   {
-    InputElement projectNameBox = querySelector("#projName");
-    SelectElement projectLocationBox = querySelector("#projLocation");
-    SelectElement pluginsSelectedBox = querySelector("#pluginsRight");
+    InputElement projectNameBox = querySelector(projectNameBoxId);
+    SelectElement projectLocationBox = querySelector(projectLocationBoxId);
+    SelectElement pluginsSelectedBox = querySelector(pluginsRightBoxId);
     String projectName = projectNameBox.value;
     String projectLocation = projectLocationBox.value;
     String scriptCommand;
@@ -35,12 +35,13 @@ class AddProject
     if(pluginsSelectedBox.length == 0)
     {
       window.alert(scriptCommand);
-      ServerRequest.createProject(scriptCommand, ServerRequest.defaultUri(), 
+      PortfolioServerRequests.createProject(scriptCommand, PortfolioServerRequests.defaultUri(), 
           (s) => addProjectSuccess(s, projectName), (s) => addProjectFail(s));
     }
     if(pluginsSelectedBox.length > 0)
     {
-      ServerRequest.createProject(scriptCommand, ServerRequest.defaultUri(), (s) => addHelpers(), (s) => addProjectFail(s));
+      PortfolioServerRequests.createProject(scriptCommand, PortfolioServerRequests.defaultUri(), 
+                                           (s) => addHelpers(), (s) => addProjectFail(s));
     }
     
   }
@@ -59,7 +60,7 @@ class AddProject
       String plugin = pluginOption.innerHtml;
       pluginList.add(plugin);
       String helperScriptCommand = createHelpersScriptString(plugin);
-      ServerRequest.addHelperToProject(helperScriptCommand, ServerRequest.defaultUri(), 
+      PortfolioServerRequests.addHelperToProject(helperScriptCommand, PortfolioServerRequests.defaultUri(), 
           moveToNext(), helperFailCounter(plugin));
     }
     window.alert(failedHelpers.length.toString());

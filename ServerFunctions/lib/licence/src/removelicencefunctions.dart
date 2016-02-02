@@ -20,8 +20,8 @@ class RemoveLicenceFunctions
       return;
     }
     
-    ServerRequest.removeLicence(licenceValue, window.sessionStorage['username'],window.sessionStorage['password'],
-                                ServerRequest.defaultUri(), 
+    LicenceServerRequests.removeLicence(licenceValue, window.sessionStorage['username'],window.sessionStorage['password'],
+                                LicenceServerRequests.defaultUri(), 
                                 (s) => pc.getResult(ps.licenceSuccessPrompt("Remove-Licence"), s),
                                 (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
   }
@@ -44,8 +44,8 @@ class RemoveLicenceFunctions
       return;
     }
     
-    ServerRequest.searchForLicences(licenceSearch, window.sessionStorage['username'],window.sessionStorage['password'],
-                                    ServerRequest.defaultUri(),
+    LicenceServerRequests.searchForLicences(licenceSearch, window.sessionStorage['username'],window.sessionStorage['password'],
+                                     LicenceServerRequests.defaultUri(),
                                     (s) => goToSearchResultPage(s), 
                                     (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
   }

@@ -9,3 +9,6 @@ library SoapRequestLibrary;
 // TODO: Export any libraries intended for clients of this package.
 
 export 'src/serverrequest.dart';
+export 'src/databaseserverrequests.dart';
+export 'src/licenceserverrequests.dart';
+export 'src/portfolioserverrequests.dart';

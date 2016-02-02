@@ -54,7 +54,7 @@ class NavigationFunctions
       ps.errorPrompt("No-Password");
       return;
     }
-    ServerRequest.basicAuthLogin(username.value, password.value, ServerRequest.defaultUri(), (s) => goToProjectPage(),
+    PortfolioServerRequests.basicAuthLogin(username.value, password.value, PortfolioServerRequests.defaultUri(), (s) => goToProjectPage(),
                                 (s) => presentErrorPopup());
   }
     
@@ -75,7 +75,7 @@ class NavigationFunctions
       ps.errorPrompt("No-Password");
       return;
     }
-    ServerRequest.basicAuthLogin(username.value, password.value, ServerRequest.defaultUri(), (s) => goToRegistryPage(),
+    PortfolioServerRequests.basicAuthLogin(username.value, password.value, PortfolioServerRequests.defaultUri(), (s) => goToRegistryPage(),
                                 (s) => presentErrorPopup());
   }
   
@@ -121,8 +121,8 @@ class NavigationFunctions
       return;
     }
     
-    ServerRequest.checkPermissions(username.value,password.value,ServerRequest.defaultUri(),storePermissions);
-    checkDetails(username.value, password.value);
+    LicenceServerRequests.checkLicencePermissions(username.value,password.value,LicenceServerRequests.defaultUri(),storePermissions);
+    checkDetailsLicence(username.value, password.value);
   }
   
   void logoutLicence(MouseEvent m)
@@ -159,9 +159,9 @@ class NavigationFunctions
     window.location.href = page;
   }
   
-  void checkDetails(String userName, String password)
+  void checkDetailsLicence(String userName, String password)
   {  
-    ServerRequest.licenceAdminLogin(userName, password, ServerRequest.defaultUri(),
+    LicenceServerRequests.licenceAdminLogin(userName, password, LicenceServerRequests.defaultUri(),
         () => goToLicencePage(),
         () => ps.errorPrompt("Incorrect-Details"));
   }

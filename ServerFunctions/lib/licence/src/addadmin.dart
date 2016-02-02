@@ -32,11 +32,11 @@ class AddAdminFunctions
     { 
       String user = userNameInput.value;
       String password = passwordInput.value;
-       
-      ServerRequest.addAdminUser(user, password, window.sessionStorage['username'],window.sessionStorage['password'],
-                                 ServerRequest.defaultUri(), (s) => pc.getResult(ps.licenceSuccessPrompt("Add-Admin"), s),
-                                 (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
       
+      LicenceServerRequests.addAdminLicenceUser(user, password, window.sessionStorage['username'],window.sessionStorage['password'],
+          LicenceServerRequests.defaultUri(), (s) => pc.getResult(ps.licenceSuccessPrompt("Add-Admin"), s),
+          (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
+       
       userNameInput.value = "";
       passwordInput.value = "";
       confirmPassword.value = "";

@@ -144,12 +144,11 @@ class CreateLicenceFunctions
       userValue = un.value;
       if (url.value.length>0)
         userValue = userValue+"("+url.value+")";
-        
-      ServerRequest.addLicence(userValue,shortDate,fe.value, window.sessionStorage['username'],
-                                window.sessionStorage['password'], ServerRequest.defaultUri(),
-                                (s) => pc.getResult(ps.licenceClipboardPopup("Create-Licence"), s),
-                                (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
-        
+      
+      LicenceServerRequests.addLicence(userValue,shortDate,fe.value, window.sessionStorage['username'],
+                                        window.sessionStorage['password'], LicenceServerRequests.defaultUri(),
+                                        (s) => pc.getResult(ps.licenceClipboardPopup("Create-Licence"), s),
+                                        (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
       un.value = "";
       fe.value = "";
       }
@@ -175,12 +174,11 @@ class CreateLicenceFunctions
     userValue = un.value;
     if (url.value.length>0)
       userValue = userValue+"("+url.value+")";
-          
-    ServerRequest.addLicence(userValue,shortDate,fe.value,window.sessionStorage['username'],
-                             window.sessionStorage['password'],ServerRequest.defaultUri(),
-                             (s) => pc.getResult(ps.licenceClipboardPopup("Create-Licence"), s),
-                             (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
-          
+    
+    LicenceServerRequests.addLicence(userValue,shortDate,fe.value,window.sessionStorage['username'],
+                                     window.sessionStorage['password'],LicenceServerRequests.defaultUri(),
+                                     (s) => pc.getResult(ps.licenceClipboardPopup("Create-Licence"), s),
+                                     (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
     un.value = "";
     fe.value = "";
   }

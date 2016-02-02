@@ -16,8 +16,8 @@ class AddPermissionsFunctions
     String user = usernameInput.value;
     permission = permissionChoice.value;
     
-    ServerRequest.addPermission(user, permission, window.sessionStorage['username'],
-                                window.sessionStorage['password'],ServerRequest.defaultUri(),
+    LicenceServerRequests.addLicencePermission(user, permission, window.sessionStorage['username'],
+                                window.sessionStorage['password'],LicenceServerRequests.defaultUri(),
                                 (s) => pc.getResult(ps.licenceSuccessPrompt("Add-Permissions"), s),
                                 (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
   }
@@ -32,10 +32,10 @@ class AddPermissionsFunctions
     String user = usernameInput.value;
     permission = permissionChoice.value;
     
-    ServerRequest.removePermission(user, permission, window.sessionStorage['username'],
-                                window.sessionStorage['password'], ServerRequest.defaultUri(), 
-                                (s) => pc.getResult(ps.licenceSuccessPrompt("Remove-Permissions"), s),
-                                (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
+    LicenceServerRequests.removeLicencePermission(user, permission, window.sessionStorage['username'],
+        window.sessionStorage['password'], LicenceServerRequests.defaultUri(), 
+        (s) => pc.getResult(ps.licenceSuccessPrompt("Remove-Permissions"), s),
+        (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
   } 
 
   void setDescriptionText()

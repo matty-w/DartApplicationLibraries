@@ -25,8 +25,10 @@ class RegenerateLicenceFunctions
       if (url.value.length>0)
         userValue = userValue+"("+url.value+")";
       
-    ServerRequest.regenerateLicence(userValue, window.sessionStorage['username'],
-                                    window.sessionStorage['password'], ServerRequest.defaultUri(), 
+      
+      
+    LicenceServerRequests.regenerateLicence(userValue, window.sessionStorage['username'],
+                                    window.sessionStorage['password'], LicenceServerRequests.defaultUri(), 
                                     (s) => pc.getResult(ps.licenceSuccessPrompt("Regenerate-Licence"), s),
                                     (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));  
   }

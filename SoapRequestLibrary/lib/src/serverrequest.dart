@@ -1,4 +1,4 @@
-library server;
+/*library server;
 
 import 'soaprequest.dart';
 import 'dart:html';
@@ -16,7 +16,7 @@ class ServerRequest extends SoapRequest
     result.getLicenceStringResponse((s) => (s=="true")? onPass() : onFail ());   
   }
   
-  static void checkPermissions(String adminName,String adminPassword,String host,Function action)
+  static void checkLicencePermissions(String adminName,String adminPassword,String host,Function action)
   {
     ServerRequest result;
     result = new ServerRequest();
@@ -42,7 +42,7 @@ class ServerRequest extends SoapRequest
     result.getLicenceStringResponse((String s) => (s.contains("-"))? onPass(s) : onFail (s));
   }
   
-  static void addAdminUser(String user, String password, String adminName, String adminPassword, 
+  static void addAdminLicenceUser(String user, String password, String adminName, String adminPassword, 
                            String host, Function onPass, Function onFail)
   {
     ServerRequest result;
@@ -55,7 +55,7 @@ class ServerRequest extends SoapRequest
     result.getLicenceStringResponse((String s) => (s == "done")? onPass(s) : onFail(s));
   }
   
-  static void addPermission(String user, String permissionChoice, String adminName, String adminPassword, String host, Function onPass, Function onFail)
+  static void addLicencePermission(String user, String permissionChoice, String adminName, String adminPassword, String host, Function onPass, Function onFail)
   {
     ServerRequest result;
     result = new ServerRequest();
@@ -67,7 +67,7 @@ class ServerRequest extends SoapRequest
     result.getLicenceStringResponse((String s) => (s == "done")? onPass(s) : onFail(s));
   }
   
-  static void removePermission(String user, String permissionChoice, String adminName, String adminPassword, String host, Function onPass, Function onFail)
+  static void removeLicencePermission(String user, String permissionChoice, String adminName, String adminPassword, String host, Function onPass, Function onFail)
   {
     ServerRequest result;
     result = new ServerRequest();
@@ -91,7 +91,7 @@ class ServerRequest extends SoapRequest
     result.getLicenceStringResponse((String s) => (s.contains("-"))? onPass(s) : onFail(s));
   }
   
-  static void removeUser(String user, String adminName, String adminPassword, String host, Function onPass, Function onFail)
+  static void removeLicenceUser(String user, String adminName, String adminPassword, String host, Function onPass, Function onFail)
   {
     ServerRequest result;
     result = new ServerRequest();
@@ -150,7 +150,7 @@ class ServerRequest extends SoapRequest
       result.getPortfolioStringResponse((String s) => (s.contains("build"))? onPass(s) : onFail (s));
     }
     
-    static void listProjects(String host, Function onPass)
+    static void listProjectsDatabase(String host, Function onPass)
     {
       ServerRequest result;
       result = new ServerRequest();
@@ -158,15 +158,6 @@ class ServerRequest extends SoapRequest
       result.setHost(host);
       result.getDatabaseListResponse((s) => onPass(s));
     }
-    
-    static void listProjectsTemp(String host, Function onPass)
-    {
-      ServerRequest result;
-      result = new ServerRequest();
-      result.setAction("listProjects");
-      result.setHost(host);
-      result.getDatabaseListResponse((s) => onPass(s));
-    } 
     
     static void getProjectConfigs(String host, Function onPass)
     {
@@ -239,6 +230,43 @@ class ServerRequest extends SoapRequest
       result.addArgument(projectPath);
       result.addArgument(key);  
       result.getPortfolioListResponse((s) => onPass(s));
+    }
+    
+    static void runPortfolioScriptCommand(String scriptCommand, String expectedResponse, String host, Function onPass, Function onFail)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("runScriptCommand");
+      result.addArgument(scriptCommand);
+      if(expectedResponse == "String-Response")
+        result.getPortfolioStringResponse((String s) => (s == ("done"))? onPass(s) : onFail (s));
+      else if(expectedResponse == "List-Response")
+        result.getPortfolioListResponse((List s) => (s.length > 0)? onPass(s) : onFail(s));
+      else if(expectedResponse == "List-Of-List-Response")
+        result.getPortfolioListOfListResponse((s) => onPass(s));
+    }
+    
+    static void setProjectProperty(String project, String property, String propertyValue, String host, Function onPass, Function onFail)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("setProperty");
+      result.addArgument(project);
+      result.addArgument(property);
+      result.addArgument(propertyValue);
+      result.getPortfolioStringResponse((String s) => (s == ("done"))? onPass(s) : onFail(s));
+      
+    }
+    
+    static void projectSecuritySettings(String scriptCommand, String host, Function onPass, Function onFail)
+    {
+      ServerRequest result;
+      result = new ServerRequest();
+      result.setHost(host);
+      result.setAction("runScriptCommand");
+      result.addArgument(scriptCommand);
     }
     
     static void createProject(String scriptCommand, String host, Function onPass, Function onFail)
@@ -329,4 +357,4 @@ class ServerRequest extends SoapRequest
     {
       return "PortfolioService/PortfolioServiceService";
     }
-}
+}*/

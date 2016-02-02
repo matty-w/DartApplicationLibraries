@@ -85,8 +85,9 @@ class LicenceSearchResults
       {
         String innerHtmlFull = table.rows[i+1-deletedRows].innerHtml;
         String key = getKeyValue(innerHtmlFull);
-        ServerRequest.removeLicence(key, window.sessionStorage['username'],window.sessionStorage['password'],
-                      ServerRequest.defaultUri(), moveToNext(), (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
+        
+        LicenceServerRequests.removeLicence(key, window.sessionStorage['username'],window.sessionStorage['password'],
+              LicenceServerRequests.defaultUri(), moveToNext(), (s) => pc.getResult(ps.errorPrompt("Server-Error"), s));
       }
     }
     removeRows();

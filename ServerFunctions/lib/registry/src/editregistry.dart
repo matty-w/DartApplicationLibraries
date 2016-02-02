@@ -2,6 +2,7 @@ library editRegistry;
 
 import 'dart:html';
 import 'elementvalues.dart';
+import 'package:ServerFunctions/ServerFunctions.dart';
 import 'package:PopupLibrary/PopupLibrary.dart';
 
 class EditRegistry
@@ -10,7 +11,7 @@ class EditRegistry
   
   void editButton(MouseEvent m)
   {
-    List catalogueKeys = ElementValues.deleteKeys();
+    List catalogueKeys = RegistryWebElementValues.deleteKeys();
     if((catalogueKeys.length == 0 || catalogueKeys == null))
     {
       ps.errorPrompt("No-Entries-Selected-Edit");
