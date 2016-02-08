@@ -6,33 +6,58 @@ import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 
 class ProjectSecurity
 {
-  void secureOrUnsecureProject(String secureSelectId, String projectSelectId)
+  PopupConstructor pc = new PopupConstructor();
+  PopupSelection ps = new PopupSelection();
+  
+  void secureOrUnsecureProject(String secureSelectId, String projectSelectId, String loggedInAsId)
   {
     SelectElement secureOrUnsecure = querySelector(secureSelectId);
     SelectElement projectList = querySelector(projectSelectId);
+    OutputElement loggedInUser = querySelector(loggedInAsId);
     
     String selectedProject = projectList.value;
     String selectedSecurity = secureOrUnsecure.value;
+    String username = loggedInUser.innerHtml;
+    window.alert("sp1");
+    window.alert(selectedProject);
+    window.alert(selectedSecurity);
+    window.alert(username);
     
     if(selectedSecurity == "Secured Project")
     {
-      String scriptCommand = createScriptCommandSecure(selectedProject);
-      PortfolioServerRequests.projectSecuritySettings(scriptCommand, PortfolioServerRequests.defaultUri(), (s) => projectSecurityPass(s), 
-          (s) => projectSecurityFail(s));
+      window.alert("secure");
+      List scriptCommands = createScriptCommandSecure(selectedProject, username);
+      for(int i = 0; i < scriptCommands.length; i++)
+      {
+        String scriptCommand = scriptCommands[i];
+        window.alert(scriptCommand);
+        PortfolioServerRequests.runPortfolioScriptCommand(scriptCommand, "String-Response", PortfolioServerRequests.defaultUri(),
+                                                          (s) => projectSecurityPass(s, selectedProject),
+                                                          (s) => projectSecurityFail(s));
+      }
     }
     else if(selectedSecurity == "Unsecured Project")
     {
+      window.alert("unsecure");
       String scriptCommand = createScriptCommandInsecure(selectedProject);
-      PortfolioServerRequests.projectSecuritySettings(scriptCommand, PortfolioServerRequests.defaultUri(), (s) => projectSecurityPass(s), 
-          (s) => projectSecurityFail(s));
+      window.alert(scriptCommand);
+      PortfolioServerRequests.runPortfolioScriptCommand(scriptCommand, "String-Response", PortfolioServerRequests.defaultUri(), 
+                                                        (s) => projectUnSecurePass(s, selectedProject),
+                                                        (s) => projectSecurityFail(s));
     }
     
     
   }
   
-  String createScriptCommandSecure(String projectName)
+  List createScriptCommandSecure(String projectName, String userName)
   {
-    return "make project "+projectName+" insecure";
+    List<String> commands = new List<String>();
+    String addUser = "add user "+userName+" to "+projectName+' "authentication.username=admin" "authentication.password=admin"';
+    String grantPermission = "grant permission in "+projectName+" for "+userName+' to add-permission "authentication.username=admin" '+
+        '"authentication.password=admin"';
+    commands.add(addUser);
+    commands.add(grantPermission);
+    return commands;
   }
   
   String createScriptCommandInsecure(String projectName)
@@ -40,13 +65,19 @@ class ProjectSecurity
     return "make project "+projectName+" insecure";
   }
   
-  projectSecurityPass(String response)
+  projectUnSecurePass(String response, String projectName)
   {
-    
+    pc.getResult(ps.projectSuccessPrompt("Unsecure-Project-Success", projectName), "");
+  }
+  
+  projectSecurityPass(String response, String projectName)
+  {
+    window.alert("secured pass");
+    pc.getResult(ps.projectSuccessPrompt("Secure-Project-Success", projectName), "");
   }
   
   projectSecurityFail(String response)
   {
-    
+    pc.getResult(ps.errorPrompt("Project-Security-Fail"), response);
   }
 }

@@ -182,7 +182,7 @@ class ApplicationPopupElements extends PopupActions
     }
   }
   
-  void setProjectText(String option)
+  void setProjectText(String option, String projectName)
   {
     String title;
     String description;
@@ -190,7 +190,47 @@ class ApplicationPopupElements extends PopupActions
     if(option == "Delete-Project-Success")
     {
       title = "Project Deleted";
-      description = "The Project Was Successfully Deleted.";
+      description = "The Project "+"'"+projectName+"'"+" Was Successfully Deleted.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "User-Added-To-Project")
+    {
+      title = "User Added To Project";
+      description = "The User Has Been Successfully Added To The Project: "+projectName;
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Project-Details-Edited")
+    {
+      title = "Project Details Edited";
+      description = "The Project "+"'"+projectName+"'"+" Have Been Successfully Edited";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "User-Removed-From-Project")
+    {
+      title = "Project User Removed";
+      description = "The User Has Successfully Been Removed From The Project '"+projectName+"'";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Secured-Project-Success")
+    {
+      title = "Project Successfully Secured";
+      description = "The Project '"+projectName+"' Has Been Successfully Secured.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Unsecure-Project-Success")
+    {
+      title = "Project Successfully Unsecured";
+      description = "The Project '"+projectName+"' Has Been Successfully Unsecured.";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;
@@ -379,14 +419,50 @@ class ApplicationPopupElements extends PopupActions
     }
     if(error == "Add-Project-Fail")
     {
-      description = "There Has Been An Error Attempting TO Create The Project, The Error Reads:";
+      description = "There Has Been An Error Attempting TO Create The Project, The Error Reads: ";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;
     }
     if(error == "Project-Delete-Fail")
     {
-      description = "There Has Been An Error Attempting To Delete This Project, The Error Reads:";
+      description = "There Has Been An Error Attempting To Delete This Project, The Error Reads: ";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Add-User-To-Project-Fail")
+    {
+      description = "There Has Been An Error Attempting To Add A User To This Project, The Error Reads: ";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Error-Editing-Project")
+    {
+      description = "There Has Been An Error Attempting To Edit The Project, The Error Reads: ";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Remove-User-From-Project-Fail")
+    {
+      description = "There Has Been An Error Attempting To Remove The User From The Project, The Error Reads: ";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Error-Adding-User-Project-Permissions")
+    {
+      description = "While The User Has Been Added To The Project, There Has Been An Error Adding Some User Permissions, Please Delete The "+
+          "User And Try Again.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "Project-Security-Fail")
+    {
+      description = "There Was A Problem Un/Securing The Selected Project, The Error Reads: ";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;

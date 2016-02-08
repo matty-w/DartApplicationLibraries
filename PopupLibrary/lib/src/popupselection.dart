@@ -49,9 +49,9 @@ class PopupSelection
     pb.createAddProjectSuccessPrompt(successAction, projectName, helpers);
   }
   
-  projectSuccessPrompt(String successAction)
+  projectSuccessPrompt(String successAction, String projectName)
   {
-    pb.createProjectSuccessPrompt(successAction);
+    pb.createProjectSuccessPrompt(successAction, projectName);
   }
   
   licenceClipboardPopup(String successAction)

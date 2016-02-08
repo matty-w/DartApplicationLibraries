@@ -31,7 +31,7 @@ class DeleteProject
     
     String deleteProjectScript = createDeleteScript(projectName);
     PortfolioServerRequests.deleteProject(deleteProjectScript, PortfolioServerRequests.defaultUri(), 
-                                          (s) => resetProjects(), (s) => deleteFail(s));
+                                          (s) => resetProjects(projectName), (s) => deleteFail(s));
   }
   
   String createDeleteScript(String projectName)
@@ -40,14 +40,15 @@ class DeleteProject
     return deleteScript;
   }
   
-  resetProjects()
+  resetProjects(String projectName)
   {
-    PortfolioServerRequests.resetAllProjects(PortfolioServerRequests.defaultUri(), deleteSuccessful());
+    PortfolioServerRequests.resetAllProjects(PortfolioServerRequests.defaultUri(), deleteSuccessful(projectName));
   }
   
-  deleteSuccessful()
+  deleteSuccessful(String projectName)
   {
-    pc.getResult(ps.projectSuccessPrompt("Delete-Project-Success"), "");
+    PortfolioServerRequests.resetAllProjects(PortfolioServerRequests.defaultUri(), null);
+    pc.getResult(ps.projectSuccessPrompt("Delete-Project-Success", projectName), "");
   }
   
   deleteFail(String response)

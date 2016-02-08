@@ -67,7 +67,7 @@ class OnLoadProject
       for(int i = 0; i < projectConfigs.length; i++)
       {
         String configs = projectConfigs[i];
-        if(configs.contains("project.name="+projectName))
+        if(configs == "project.name="+projectName)
         {
           List<String> correctProject = projectConfigs;
           for(int i = 0; i < correctProject.length; i++)

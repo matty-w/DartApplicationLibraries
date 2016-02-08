@@ -4,7 +4,6 @@ import 'dart:html';
 import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 import 'package:PopupLibrary/PopupLibrary.dart';
 import 'package:ServerFunctions/ServerFunctions.dart';
-import 'elementvalues.dart';
 
 class DeleteRegistry
 {

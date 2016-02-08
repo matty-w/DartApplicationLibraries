@@ -1,10 +1,11 @@
+library registryActionFunctions;
 
 import 'dart:html';
 import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 import 'package:PopupLibrary/PopupLibrary.dart';
 import 'package:ServerFunctions/ServerFunctions.dart';
 
-class ActionFunctions
+class RegistryActionFunctions
 {
   //LoadFunctions lf = new LoadFunctions();
   OnLoadRegistry olr = new OnLoadRegistry();

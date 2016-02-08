@@ -8,7 +8,7 @@ class RegistryWebElementValues
 {    
   static void selectElementAndExplorer(List projects, String selectElementIdentifier, String tableIdentifier)
   {
-    ActionFunctions af = new ActionFunctions();
+    RegistryActionFunctions af = new RegistryActionFunctions();
     List<String> projectList = new List();
     projectList = projects;
     
@@ -43,7 +43,7 @@ class RegistryWebElementValues
   
   static void setProjectExplorerList(int projectLength)
   {   
-    ActionFunctions af = new ActionFunctions();
+    RegistryActionFunctions af = new RegistryActionFunctions();
     
     for(int i = 0; i < projectLength; i++)
     {

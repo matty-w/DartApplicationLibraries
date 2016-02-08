@@ -9,14 +9,21 @@ class AddProject
   PopupSelection ps = new PopupSelection();
   PopupConstructor pc = new PopupConstructor();
   List failedHelpers = new List();
+  int totalPassed = 0;
   
   void addProject(String projectNameBoxId, String projectLocationBoxId, String pluginsRightBoxId)
   {
+    window.alert("ap1");
     InputElement projectNameBox = querySelector(projectNameBoxId);
+    window.alert("ap2");
     SelectElement projectLocationBox = querySelector(projectLocationBoxId);
+    window.alert("ap3");
     SelectElement pluginsSelectedBox = querySelector(pluginsRightBoxId);
+    window.alert("ap4");
     String projectName = projectNameBox.value;
+    window.alert("ap5");
     String projectLocation = projectLocationBox.value;
+    window.alert("ap6");
     String scriptCommand;
     
     if(projectNameBox.value.trim() == "" || projectNameBox.value == null)
@@ -40,6 +47,7 @@ class AddProject
     }
     if(pluginsSelectedBox.length > 0)
     {
+      window.alert("plugins selected");
       PortfolioServerRequests.createProject(scriptCommand, PortfolioServerRequests.defaultUri(), 
                                            (s) => addHelpers(), (s) => addProjectFail(s));
     }
@@ -48,11 +56,15 @@ class AddProject
   
   addHelpers()
   {
-    
+    window.alert("inside helpers1");
     SelectElement pluginsSelectedBox = querySelector("#pluginsRight");
+    window.alert("inside helpers2");
     InputElement projectNameBox = querySelector("#projName");
+    window.alert("inside helpers3");
     String projectName = projectNameBox.value;
+    window.alert("inside helpers4");
     List pluginList = new List();
+    window.alert("inside helpers5");
     for(int i = 0; i < pluginsSelectedBox.length; i++)
     {
       OptionElement pluginOption = new OptionElement();
@@ -61,16 +73,16 @@ class AddProject
       pluginList.add(plugin);
       String helperScriptCommand = createHelpersScriptString(plugin);
       PortfolioServerRequests.addHelperToProject(helperScriptCommand, PortfolioServerRequests.defaultUri(), 
-          moveToNext(), helperFailCounter(plugin));
+          moveToNextSuccess(projectName, pluginList), moveToNextFail(plugin));
     }
+  }
+  
+  moveToNextSuccess(String projectName, List pluginList)
+  {
+    totalPassed++;
     window.alert(failedHelpers.length.toString());
-    
-    if(failedHelpers.length == 0)
-    {
-      window.alert("inside failedHelpers = 0 ");
-      pc.getResult(ps.addProjectSuccessPrompt("Add-Project-With-Helpers", projectName, pluginList), "");
-    }
-    else if(failedHelpers.length > 0)
+    window.alert("passed plugins = "+totalPassed.toString());
+    if(failedHelpers.length > 0)
     {
       List helpers = new List();
       helpers = failedHelpers;
@@ -81,16 +93,14 @@ class AddProject
       window.alert(failedHelpers.length.toString());
       pc.getResult(ps.addHelperFail("Add-Helper-Fail", projectName, helpers), "");
     }
-
-
+    else if(totalPassed == pluginList.length)
+    {
+      window.alert("total passed: "+totalPassed.toString()+" | "+"plugins list: "+pluginList.length.toString());
+      pc.getResult(ps.addProjectSuccessPrompt("Add-Project-With-Helpers", projectName, pluginList), "");
+    }
   }
   
-  moveToNext()
-  {
-    return;
-  }
-  
-  helperFailCounter(String plugin)
+  moveToNextFail(String plugin)
   {
     failedHelpers.add(plugin);
   }
@@ -115,6 +125,7 @@ class AddProject
   
   void addProjectSuccess(String response, String projectName)
   {
+    PortfolioServerRequests.resetAllProjects(PortfolioServerRequests.defaultUri(), null);
     pc.getResult(ps.addProjectSuccessPrompt("Add-Project-Without-Helpers", projectName, null), "");
   }
   

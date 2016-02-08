@@ -1,7 +1,6 @@
 library editRegistry;
 
 import 'dart:html';
-import 'elementvalues.dart';
 import 'package:ServerFunctions/ServerFunctions.dart';
 import 'package:PopupLibrary/PopupLibrary.dart';
 

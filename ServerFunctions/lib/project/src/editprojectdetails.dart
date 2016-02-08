@@ -6,19 +6,20 @@ import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 
 class EditProjectDetails
 {
+  int correctRunThroughs = 0;
+  
   void editProjectDetails(String projectNameId, String projectTitleBoxId, String projectDescriptionBoxId, String projectPluginsBoxId)
   {
+    PopupConstructor pc = new PopupConstructor();
+    PopupSelection ps = new PopupSelection();
     SelectElement selectedProjectBox = querySelector(projectNameId);
     InputElement projectTitleBox = querySelector(projectTitleBoxId);
     InputElement projectDescriptionBox = querySelector(projectDescriptionBoxId);
     SelectElement projectPluginsBox = querySelector(projectDescriptionBoxId);
     
     String selectedProject = selectedProjectBox.value;
-    window.alert(selectedProject);
     String projectTitle = projectTitleBox.value;
-    window.alert(projectTitle);
     String projectDescription = projectDescriptionBox.value;
-    window.alert(projectDescription);
     List selectedPlugins = projectPluginsBox.children;
     window.alert(selectedPlugins.length.toString());
     
@@ -28,13 +29,29 @@ class EditProjectDetails
     {
       window.alert(scriptCommands[i]);
       PortfolioServerRequests.runPortfolioScriptCommand(scriptCommands[i], "String-Response", PortfolioServerRequests.defaultUri(),
-          moveToNext(), moveToNext());
+          moveToNext(), (s) => errorPrompt(s));
     }
+    window.alert("correct run throughs: "+correctRunThroughs.toString());
+    window.alert(scriptCommands.length.toString());
+    if(correctRunThroughs == scriptCommands.length)
+    {
+      ps.projectSuccessPrompt("Project-Details-Edited", selectedProject);
+    }
+    
   }
   
-  Function moveToNext()
+  moveToNext()
   {
-    
+    correctRunThroughs++;
+    return;
+  }
+  
+  errorPrompt(String response)
+  {
+    window.alert("in error");
+    PopupConstructor pc = new PopupConstructor();
+    PopupSelection ps = new PopupSelection();
+    pc.getResult(ps.errorPrompt("Error-Editing-Project"), response);
   }
   
   List<String> createScriptCommands(String project, String projectTitle, String projectDescription)
@@ -43,12 +60,12 @@ class EditProjectDetails
     
     if(projectTitle != null || projectTitle != "")
     {
-      String command = "set title for project "+project+" to "+projectTitle;
+      String command = "set title for project "+project+" to "+'"'+projectTitle+'"';
       commands.add(command);
     }
     if(projectDescription != null || projectDescription != "")
     {
-      String command = "document project "+project+" with "+projectDescription;
+      String command = "document project "+project+" with "+'"'+projectDescription+'"';
       commands.add(command);
     }
     
