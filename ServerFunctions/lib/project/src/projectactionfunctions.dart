@@ -82,6 +82,34 @@ class ProjectActionFunctions
     }
   }
   
+  void loadProjectFolders(String projectName, String projectFolderBoxId)
+  {
+    String projectTitle = projectName;
+    
+    PortfolioServerRequests.getProjectProperty(projectTitle, "project.contents", PortfolioServerRequests.defaultUri(), 
+        (s) => createFolderDropdownList(s, projectFolderBoxId));
+  }
+  
+  createFolderDropdownList(String response, String projectFolderBoxId)
+  {
+    SelectElement projectFolderBox = querySelector(projectFolderBoxId);
+    
+    while(projectFolderBox.children.length > 0)
+    {
+      projectFolderBox.children.removeAt(0);
+    }
+    
+    String folderNames = response;
+    List folderList = folderNames.split(",");
+    for(int i = 0; i < folderList.length; i++)
+    {
+      OptionElement option = new OptionElement();
+      option.innerHtml = folderList[i];
+      option.id = folderList[i];
+      projectFolderBox.children.add(option);
+    }
+  }
+  
   void displayDescription(String pluginId, String descriptionIdentifier)
   {
     olp.loadPluginDescriptors(pluginId, descriptionIdentifier);

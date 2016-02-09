@@ -144,6 +144,17 @@ class PortfolioServerRequests extends SoapRequest
     result.getDatabaseListResponse((s) => onPass(s));
   }
   
+  static void getProjectProperty(String projectName, String propertyChoice, String host, Function onPass)
+  {
+    PortfolioServerRequests result;
+    result = new PortfolioServerRequests();
+    result.setAction("getProperty");
+    result.addArgument(projectName);
+    result.addArgument(propertyChoice);
+    result.setHost(host);
+    result.getPortfolioStringResponse((s) => onPass(s));
+  }
+  
   static String defaultUri()
   {
     return window.location.host;
