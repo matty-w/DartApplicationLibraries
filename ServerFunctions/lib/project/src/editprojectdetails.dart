@@ -35,7 +35,7 @@ class EditProjectDetails
     window.alert(scriptCommands.length.toString());
     if(correctRunThroughs == scriptCommands.length)
     {
-      ps.projectSuccessPrompt("Project-Details-Edited", selectedProject);
+      ps.projectSuccessPrompt("Project-Details-Edited", selectedProject, null);
     }
     
   }

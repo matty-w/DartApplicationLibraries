@@ -60,6 +60,32 @@ class ProjectWebElementValues
     }
   }
   
+  static void selectElementProjectDropDownAndFolder(String serverResponse, List projects, String projectBoxId, String folderBoxId)
+  {
+    List<String> projectList = new List();
+    projectList = projects;
+    String folders = serverResponse;
+    List folderList = folders.split(",");
+    SelectElement projectBox = querySelector(projectBoxId);
+    SelectElement folderBox = querySelector(folderBoxId);
+    
+    for(int i = 0; i < projectList.length; i++)
+    {
+      var option = document.createElement("option");
+      option.setAttribute("value", projectList[i]);
+      option.id = i.toString();
+      option.setInnerHtml(projectList[i]);
+      projectBox.children.add(option);
+    }
+    for(int i = 0; i < folderList.length; i++)
+    {
+      OptionElement option = new OptionElement();
+      option.innerHtml = folderList[i];
+      option.id = folderList[i];
+      folderBox.children.add(option);
+    }
+  }
+  
   static void datasetProjectsDropDown(List projects, String htmlIdentifier)
   {
     List<String> projectList = new List();

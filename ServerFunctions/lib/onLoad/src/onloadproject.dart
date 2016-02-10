@@ -35,6 +35,12 @@ class OnLoadProject
                                               (s) => createProjectSelectList(s, identifier, includeProjDetails));
   }
   
+  void loadSelectElementProjectsWithFolders(String projectBoxId, String folderBoxId)
+  {
+    PortfolioServerRequests.getProjectConfigs(PortfolioServerRequests.defaultUri(), 
+                                              (s) => createProjectSelectListWithFolders(s, projectBoxId, folderBoxId));
+  }
+  
   void loadProjectDetails(String titleIdentifier, String descriptionIdentifier)
   {
     SelectElement selectedProjectBox = querySelector("#projectDropDown");
@@ -87,6 +93,32 @@ class OnLoadProject
         }
       }
     }  
+  }
+  
+  void createProjectSelectListWithFolders(List response, String projectBoxId, String folderBoxId)
+  {
+    List<String> projectTitles = new List<String>();
+    for(int i = 0; i < response.length; i++)
+    {
+      List<String> projectConfigs = new List<String>();
+      projectConfigs = response[i];
+      for(int i = 0; i < projectConfigs.length; i++)
+      {
+        String config = projectConfigs[i];
+        if(config.contains("project.name"))
+        {
+          String projectNameFinal = config.substring(13);
+          projectTitles.add(projectNameFinal);
+        }
+      }
+    }
+    PortfolioServerRequests.getProjectProperty(projectTitles[0], "project.contents", PortfolioServerRequests.defaultUri(), 
+                                               (s) => createProjectAndFolderDetails(s, projectTitles, projectBoxId, folderBoxId));
+  }
+  
+  void createProjectAndFolderDetails(String response, List projectTitles, String projectBoxId, String folderBoxId)
+  {
+    ProjectWebElementValues.selectElementProjectDropDownAndFolder(response, projectTitles, projectBoxId, folderBoxId);
   }
   
   void createProjectSelectList(List response, String identifier, bool includeProjDetails)

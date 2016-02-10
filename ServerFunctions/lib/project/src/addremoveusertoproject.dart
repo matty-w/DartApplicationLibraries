@@ -32,14 +32,14 @@ class AddRemoveUserToProject
     {
       String scriptCommand = createRemoveUserScriptCommand(user, projectName);
       PortfolioServerRequests.runPortfolioScriptCommand(scriptCommand, "String-Response", PortfolioServerRequests.defaultUri(),
-                                                        (s) => ps.projectSuccessPrompt("User-Removed-From-Project", projectName), 
+                                                        (s) => ps.projectSuccessPrompt("User-Removed-From-Project", projectName, null), 
                                                         (s) => pc.getResult(ps.errorPrompt("Remove-User-From-Project-Fail"), s));
     }
     else if(addRemoveUser == "Add User" && permissions == "No Permissions")
     {
       String scriptCommand = createAddUserScriptCommand(user, projectName);
       PortfolioServerRequests.runPortfolioScriptCommand(scriptCommand, "String-Response", PortfolioServerRequests.defaultUri(),
-                                                        (s) => ps.projectSuccessPrompt("User-Added-To-Project", projectName), 
+                                                        (s) => ps.projectSuccessPrompt("User-Added-To-Project", projectName, null), 
                                                         (s) => pc.getResult(ps.errorPrompt("Add-User-To-Project-Fail"), s));
     }
     else if(addRemoveUser == "Add User" && permissions != "No Permissions")
@@ -114,7 +114,7 @@ class AddRemoveUserToProject
     }
     else if(totalPassed == permissionScripts.length)
     {
-      ps.projectSuccessPrompt("User-Added-To-Project", projectName);
+      ps.projectSuccessPrompt("User-Added-To-Project", projectName, null);
     }
     return;
   }
@@ -129,7 +129,7 @@ class AddRemoveUserToProject
     }
     else if(totalPassed == permissionScripts.length)
     {
-      ps.projectSuccessPrompt("User-Removed-From-Project", projectName);
+      ps.projectSuccessPrompt("User-Removed-From-Project", projectName, null);
     }
     return;
   }
@@ -144,19 +144,25 @@ class AddRemoveUserToProject
     return "remove user "+username+" from "+projectName;
   }
   
-  void togglePermissionsBox(String addRemoveUserId, String dropdownId)
+  void togglePermissionsBox(String addRemoveUserId, String dropdownId, String liId, String buttonId)
   {
+    Element liElement = querySelector(liId);
+    InputElement button = querySelector(buttonId);
     SelectElement addRemoveBox = querySelector(addRemoveUserId);
     SelectElement permissionsBox = querySelector(dropdownId);
     String addRemoveString = addRemoveBox.value;
     
     if(addRemoveString == "Remove User")
     {
+      button.value = "Remove User";
+      liElement.style.display = "none";
       permissionsBox.options[0].selected = true;
       permissionsBox.disabled = true;
     }
     else if(addRemoveString == "Add User")
     {
+      button.value = "Add User";
+      liElement.style.display = "block";
       permissionsBox.disabled = false;
     }
   }

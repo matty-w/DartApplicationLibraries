@@ -67,13 +67,13 @@ class ProjectSecurity
   
   projectUnSecurePass(String response, String projectName)
   {
-    pc.getResult(ps.projectSuccessPrompt("Unsecure-Project-Success", projectName), "");
+    pc.getResult(ps.projectSuccessPrompt("Unsecure-Project-Success", projectName, null), "");
   }
   
   projectSecurityPass(String response, String projectName)
   {
     window.alert("secured pass");
-    pc.getResult(ps.projectSuccessPrompt("Secure-Project-Success", projectName), "");
+    pc.getResult(ps.projectSuccessPrompt("Secure-Project-Success", projectName, null), "");
   }
   
   projectSecurityFail(String response)

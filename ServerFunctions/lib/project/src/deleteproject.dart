@@ -48,7 +48,7 @@ class DeleteProject
   deleteSuccessful(String projectName)
   {
     PortfolioServerRequests.resetAllProjects(PortfolioServerRequests.defaultUri(), null);
-    pc.getResult(ps.projectSuccessPrompt("Delete-Project-Success", projectName), "");
+    pc.getResult(ps.projectSuccessPrompt("Delete-Project-Success", projectName, null), "");
   }
   
   deleteFail(String response)

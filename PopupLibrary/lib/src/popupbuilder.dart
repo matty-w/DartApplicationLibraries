@@ -99,9 +99,9 @@ class PopupBuilder
     pc.basicPopup("#popUpDiv");
   }
   
-  void createProjectSuccessPrompt(String successAction, String projectName)
+  void createProjectSuccessPrompt(String successAction, String projectName, String folderName)
   {
-    pc.setProjectText(successAction, projectName);
+    pc.setProjectText(successAction, projectName, folderName);
     pc.removePictures(false);
     pc.setErrorPicture(false);
     pc.hideBreaks(true);

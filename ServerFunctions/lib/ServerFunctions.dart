@@ -24,6 +24,8 @@ export 'registry/src/addregistry.dart';
 export 'registry/src/deleteregistry.dart';
 export 'registry/src/editregistry.dart';
 
+export 'project/src/tagprojectfolder.dart';
+export 'project/src/addprojectfolder.dart';
 export 'project/src/addproject.dart';
 export 'project/src/deleteproject.dart';
 export 'project/src/projectsecurity.dart';

@@ -182,7 +182,7 @@ class ApplicationPopupElements extends PopupActions
     }
   }
   
-  void setProjectText(String option, String projectName)
+  void setProjectText(String option, String projectName, String folderName)
   {
     String title;
     String description;
@@ -231,6 +231,22 @@ class ApplicationPopupElements extends PopupActions
     {
       title = "Project Successfully Unsecured";
       description = "The Project '"+projectName+"' Has Been Successfully Unsecured.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Folder-Successfully-Added")
+    {
+      title = "Folder Successfully Added";
+      description = "The Project '"+projectName+"' Had The Folder Successfully Added.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(option == "Tag-Project-Success")
+    {
+      title = "Folder Successfully Tagged";
+      description = "The Folder '"+folderName+"' In The Project '"+projectName+"' Has Been Successfully Tagged";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;
@@ -463,6 +479,20 @@ class ApplicationPopupElements extends PopupActions
     if(error == "Project-Security-Fail")
     {
       description = "There Was A Problem Un/Securing The Selected Project, The Error Reads: ";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "No-Folder-Name-Entered")
+    {
+      description = "No Folder Name Entered In The Folder Name Input Box, Please Enter A Name And Try Again.";
+      querySelector("#popupTitle").innerHtml = title;
+      OutputElement text = querySelector("#popupText");
+      text.innerHtml = description;
+    }
+    if(error == "No-Tag-Input")
+    {
+      description = "No Tag Input Entered. Please Enter A Tag Name For The Folder And Try Again.";
       querySelector("#popupTitle").innerHtml = title;
       OutputElement text = querySelector("#popupText");
       text.innerHtml = description;
