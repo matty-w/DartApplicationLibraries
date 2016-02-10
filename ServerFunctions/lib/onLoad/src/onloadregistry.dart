@@ -7,7 +7,8 @@ import 'package:SoapRequestLibrary/SoapRequestLibrary.dart';
 
 class OnLoadRegistry
 {
-  NavigationFunctions nav = new NavigationFunctions();
+  //NavigationFunctions nav = new NavigationFunctions();
+  RegistryNavigation rn = new RegistryNavigation();
   PopupSelection ps = new PopupSelection();
   PopupConstructor pc = new PopupConstructor();
   List<String> projectList = new List();
@@ -101,7 +102,7 @@ class OnLoadRegistry
     setProject();
     if(window.sessionStorage['username'] == "" || window.sessionStorage['password'] == "")
     {
-      nav.goToIndexPage();
+      rn.goToPageRegistry("indexPage");
     }
     DatabaseServerRequests.getRegistryFiles(window.localStorage['project'], DatabaseServerRequests.defaultUri(),
                                   (s) => createRegistryTable(s));
